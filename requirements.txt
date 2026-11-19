@@ -1,0 +1,113 @@
+# ==============================================================================
+
+# nifty100-quant-bot — Master Python Dependencies
+
+# Target Environment: GitHub Actions (Ubuntu Latest, Python 3.11)
+
+# ==============================================================================
+
+
+
+# --- 1. Core Scientific Computing & Fast Data Storage ---
+
+numpy
+
+pandas
+
+scipy
+
+pyarrow                     # Fast Parquet storage for Nifty 100 OHLCV & features
+
+
+
+# --- 2. Free Market Data Ingestion (₹0 Cost) ---
+
+yfinance                    # Free EOD/daily OHLCV data for Nifty 100 (.NS)
+
+requests                    # Fetching NSE Nifty 100 constituent CSVs & Bhavcopy
+
+beautifulsoup4              # Parsing web/exchange metadata if needed
+
+lxml                        # Fast HTML/XML parser for pandas & bs4
+
+
+
+# --- 3. Feature Engineering & Technical Indicators ---
+
+ta                          # Pure-Python technical indicators (safe for GitHub Actions)
+
+scikit-learn                # Scaling, PCA, walk-forward CV, feature selection, baselines
+
+
+
+# --- 4. Advanced Machine Learning & Explainability ---
+
+xgboost                     # Gradient Boosted Decision Trees
+
+lightgbm                    # Fast histogram-based GBDT (ideal for tabular quant data)
+
+catboost                    # Ordered boosting for noisy financial features
+
+optuna                      # Bayesian hyperparameter optimization
+
+shap                        # Feature importance & model explainability
+
+joblib                      # Saving/loading trained models & pipelines
+
+
+
+# --- 5. Statistical Modeling, Econometrics & Regime Detection ---
+
+statsmodels                 # Cointegration, stationarity (ADF), ARIMA, OLS, Kalman filters
+
+arch                        # GARCH / EGARCH volatility forecasting
+
+hmmlearn                    # Hidden Markov Models (Bull / Bear / Sideways regime detection)
+
+
+
+# --- 6. Quantitative Portfolio Optimization & Rebalancing ---
+
+cvxpy                       # Convex optimization solver (custom constraints, turnover limits)
+
+PyPortfolioOpt              # Mean-Variance, Black-Litterman, HRP, Min-CVaR, Ledoit-Wolf shrinkage
+
+
+
+# --- 7. Performance Analytics, Backtesting & Manual Order Reports ---
+
+quantstats                  # Tear sheets, Sharpe, Sortino, Calmar, Max Drawdown
+
+matplotlib                  # Equity curves & regime charts
+
+seaborn                     # Correlation heatmaps & factor diagnostics
+
+tabulate                    # Clean tables for Phase 1 manual order sheets
+
+
+
+# --- 8. Configuration, Logging & Workflow Utilities ---
+
+pyyaml                      # Strategy & risk config files (config.yaml)
+
+python-dotenv               # Local secret loading (never committed)
+
+loguru                      # Clean, structured logging for GitHub Actions
+
+tqdm                        # Progress bars for local testing/backtests
+
+
+
+# --- 9. Phase 2: Zerodha Execution (Parked while testing manual orders) ---
+
+kiteconnect                 # Official Zerodha Kite Connect API client
+
+
+
+# --- 10. Optional Deep Learning (Uncomment only when we add LSTM/Transformers) ---
+
+# Kept commented out so GitHub Actions stays fast and doesn't download 2GB+ CUDA wheels.
+
+# When needed, we will install the lightweight CPU-only PyTorch wheel in the workflow:
+
+# torch
