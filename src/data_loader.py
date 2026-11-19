@@ -6,7 +6,10 @@ import pandas as pd
 import yfinance as yf
 
 # Paths
-UNIVERSE_CSV = Path("data/ind_nifty100list.csv")
+POSSIBLE_UNIVERSE_PATHS = [
+    Path("data/ind_nifty100list.csv"),
+    Path("ind_nifty100list.csv"),
+]
 RAW_DATA_DIR = Path("data/raw")
 BATCH_SIZE = 10
 BATCH_SLEEP_SEC = 2.0
@@ -17,6 +20,16 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
 )
 logger = logging.getLogger(__name__)
+
+
+def resolve_universe_csv() -> Path:
+    """Locate ind_nifty100list.csv in either data/ or repository root."""
+    for path in POSSIBLE_UNIVERSE_PATHS:
+        if path.exists():
+            return path
+    raise FileNotFoundError(
+        "Could not find 'ind_nifty100list.csv' in 'data/' or repository root."
+    )
 
 
 def load_nifty100_symbols(csv_path: Path) -> list[str]:
@@ -93,7 +106,8 @@ def download_single_with_retry(symbol: str) -> pd.DataFrame:
 
 def fetch_all_stocks() -> None:
     RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    symbols = load_nifty100_symbols(UNIVERSE_CSV)
+    universe_csv = resolve_universe_csv()
+    symbols = load_nifty100_symbols(universe_csv)
 
     succeeded: list[str] = []
     failed: list[str] = []
